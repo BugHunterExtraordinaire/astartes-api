@@ -8,6 +8,8 @@ const connectDB = require('./database/connect');
 
 const astartesRouter = require('./routes/astartes');
 
+app.use(express.json());
+
 app.use('/api/v1/marines', astartesRouter);
 
 const port = process.env.PORT || 3000;

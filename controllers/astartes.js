@@ -1,8 +1,18 @@
+const Marine = require('../models/marine');
+const { StatusCodes } = require('http-status-codes');
+
 const getAllAstartes = async (req, res) => {
-  res.send('get all astartes')
+  const marines = await Marine.find({});
+  res.status(StatusCodes.OK).json({
+    marines,
+    nbHits: marines.length
+  });
 };
 const createAstartes = async (req, res) => {
-  res.send('get all astartes')
+  const marine = await Marine.create(req.body);
+  res.status(StatusCodes.CREATED).json({
+    marine
+  });
 };
 const getAstartes = async (req, res) => {
   res.send('get all astartes')
