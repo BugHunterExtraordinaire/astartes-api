@@ -5,10 +5,12 @@ require('dotenv').config({
 const express = require('express');
 const app = express();
 const connectDB = require('./database/connect');
+const handleError = require('./middleware/handleError');
 
 const astartesRouter = require('./routes/astartes');
 
 app.use(express.json());
+app.use(handleError);
 
 app.use('/api/v1/marines', astartesRouter);
 
