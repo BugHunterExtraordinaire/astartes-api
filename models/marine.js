@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const marineSchema = mongoose.Schema({
+const marineSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please provide Astartes name"],
