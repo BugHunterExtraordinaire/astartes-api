@@ -1,9 +1,14 @@
-require('dotenv').config();
+require('dotenv').config({
+  quiet: true
+});
 
 const express = require('express');
 const app = express();
 const connectDB = require('./database/connect');
 
+const astartesRouter = require('./routes/astartes');
+
+app.use('/api/v1/marines', astartesRouter);
 
 const port = process.env.PORT || 3000;
 
