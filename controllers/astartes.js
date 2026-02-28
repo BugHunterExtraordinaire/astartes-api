@@ -1,4 +1,5 @@
 const Marine = require('../models/marine');
+const { BadRequestError } = require('../errors');
 const { StatusCodes } = require('http-status-codes');
 
 const getAllAstartes = async (req, res) => {
@@ -10,7 +11,7 @@ const getAllAstartes = async (req, res) => {
 };
 const createAstartes = async (req, res) => {
   const { name, chapter } = req.body;
-  if (!name || !chapter) throw new Error("error");
+  if (!name || !chapter) throw new BadRequestError("Please provide both name and chapter for astartes");
   const marine = await Marine.create(req.body);
   res.status(StatusCodes.CREATED).json({
     marine
