@@ -9,6 +9,8 @@ const getAllAstartes = async (req, res) => {
   });
 };
 const createAstartes = async (req, res) => {
+  const { name, chapter } = req.body;
+  if (!name || !chapter) throw new Error("error");
   const marine = await Marine.create(req.body);
   res.status(StatusCodes.CREATED).json({
     marine
