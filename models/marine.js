@@ -30,7 +30,14 @@ const marineSchema = new mongoose.Schema({
   isActive: {
     type: Boolean,
     default: true,
+  },
+  createdBy: {
+    type: mongoose.Types.ObjectId,
+    required: true,
+    ref: 'User',
   }
+}, {
+  timestamps: true
 });
 
 marineSchema.pre('save', function() {
