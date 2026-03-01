@@ -13,7 +13,13 @@ const handleError = async (err, req, res, next) => {
     customErrObj.message = message.join(", ");
     customErrObj.statusCode = StatusCodes.BAD_REQUEST;
   }
-  res.status(customErrObj.statusCode).json({message: customErrObj.message});
+  if (err.errorResponse.code === 11000) {
+    customErrObj.statusCode = StatusCodes.BAD_REQUEST;
+    customErrObj.message = "Email value already present";
+  }
+  res.status(customErrObj.statusCode).json({
+    message: customErrObj.message
+  });
   next();
 }
 
