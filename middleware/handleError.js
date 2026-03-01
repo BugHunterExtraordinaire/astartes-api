@@ -5,10 +5,16 @@ const handleError = async (err, req, res, next) => {
     message: err.message || "something went wrong please try again",
     statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR
   }
-  res.status(err.statusCode).json({
-    message: err.message
-  });
-  next()
+  if (err.name === "ValidationError") {
+    let message = [];
+    for (const error in err.errors) {
+      message.push(err.errors[error].message); 
+    }
+    customErrObj.message = message.join(", ");
+    customErrObj.statusCode = StatusCodes.BAD_REQUEST;
+  }
+  res.status(customErrObj.statusCode).json({message: customErrObj.message});
+  next();
 }
 
 module.exports = handleError;
