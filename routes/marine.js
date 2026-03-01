@@ -13,8 +13,8 @@ const {
 } = require('../controllers/marine.js');
 
 router.route('/')
-      .get(asyncWrapper(getAllMarines))
-      .post(asyncWrapper(createMarine));
+      .get(authenticateUser, asyncWrapper(getAllMarines))
+      .post(authenticateUser, asyncWrapper(createMarine));
 
 router.route('/:id')
       .get([authenticateUser, checkId], asyncWrapper(getMarine))
