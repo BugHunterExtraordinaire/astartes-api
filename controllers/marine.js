@@ -51,27 +51,27 @@ const createMarine = async (req, res) => {
   });
 };
 const getMarine = async (req, res) => {
-  const marine = await Marine.findById(req.astartesId);
-  if (!marine) throw new NotFoundError(`No marine found with id: ${req.astartesId}`);
+  const marine = await Marine.findById(req.marineId);
+  if (!marine) throw new NotFoundError(`No marine found with id: ${req.marineId}`);
 
   res.status(StatusCodes.OK).json({
     marine
   });
 };
 const updateMarine = async (req, res) => {
-  const marine = await Marine.findByIdAndUpdate(req.astartesId, req.body, {
+  const marine = await Marine.findByIdAndUpdate(req.marineId, req.body, {
     returnDocument: 'after',
     runValidators: true
   });
   
-  if (!marine) throw new NotFoundError(`No marine found with id: ${req.astartesId}`);
+  if (!marine) throw new NotFoundError(`No marine found with id: ${req.marineId}`);
   res.status(StatusCodes.OK).json({
     marine
   });
 };
 const deleteMarine = async (req, res) => {
-  const marine = await Marine.findByIdAndDelete(req.astartesId);
-  if (!marine) throw new NotFoundError(`No marine found with id: ${req.astartesId}`);
+  const marine = await Marine.findByIdAndDelete(req.marineId);
+  if (!marine) throw new NotFoundError(`No marine found with id: ${req.marineId}`);
 
   res.status(StatusCodes.OK).json({
     marine

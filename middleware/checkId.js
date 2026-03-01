@@ -2,9 +2,9 @@ const { BadRequestError } = require("../errors");
 const mongoose = require('mongoose');
 
 const checkId = (req, res, next) => {
-  const { id: astartesId } = req.params;
+  const { id: marineId } = req.params;
   if (!mongoose.Types.ObjectId.isValid(astartesId)) return next(new BadRequestError(`please provide a valid id`));
-  req.astartesId = astartesId;
+  req.marineId = marineId;
   next();
 }
 
