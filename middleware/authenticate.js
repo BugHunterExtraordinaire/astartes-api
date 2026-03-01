@@ -10,7 +10,7 @@ const authenticateUser = async (req, res, next) => {
     req.user = payload;
     next();
   } catch (error) {
-    return next(new NotAuthenticatedError('Token is invalid')); 
+    next(new NotAuthenticatedError('Token is invalid')); 
   }
 }
 
