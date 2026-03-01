@@ -3,7 +3,31 @@ const { NotFoundError } = require('../errors');
 const { StatusCodes } = require('http-status-codes');
 
 const getAllAstartes = async (req, res) => {
-  const marines = await Marine.find({});
+  const { 
+    name, 
+    chapter, 
+    rank, 
+    isTraitor,
+    filter
+  } = req.query;
+  const findObj = {};
+  const filterObj = {};
+  if (name) {
+    findObj.name = name;
+  }
+  if (chapter) {
+    findObj.chapter = chapter;
+  }
+  if (rank) {
+    findObj.rank = rank;
+  }
+  if (isTraitor) {
+    findObj.isTraitor = isTraitor === "true" ? true : false;
+  }
+  if (filter) {
+
+  }
+  const marines = await Marine.find(findObj);
   res.status(StatusCodes.OK).json({
     marines,
     nbHits: marines.length
