@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true,
+    required: [true, "Please provide an email"],
     trim: true,
     match: [
       /\w+@\w+\.com/i,
@@ -21,23 +21,21 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: [true, "Please provide a password"],
     trim: true,
   }
-}, {
-  timestamps: true
 });
 
 userSchema.pre('save', async function () {
   const salt = await bcrypt.genSalt(12);
-  return this.password = await bcrypt.hash(this.password, salt);
+  this.password = await bcrypt.hash(this.password, salt);
 });
 
-userSchema.method('verifyPassword', async function (password) {
-  return await bcrypt.compare(password, this.password)
-});
+userSchema.methods.verifyPassword = async function() {
+  return await bcrypt.compare(password, this.password);
+}
 
-userSchema.method('generateJwt', function () {
+userSchema.methods.generateJwt = function() {
   const token = jwt.sign(
     {
       userId: this._id,
@@ -48,6 +46,6 @@ userSchema.method('generateJwt', function () {
       expiresIn: process.env.JWT_LIFETIME
     });
   return token;
-});
+}
 
 module.exports = mongoose.model('User', userSchema);

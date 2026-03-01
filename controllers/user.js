@@ -1,39 +1,20 @@
 const User = require('../models/user');
+const { StatusCodes } = require('http-status-codes');
 
 const login = async (req, res) => {
 
 }
 
 const register = async (req, res) => {
-  
-}
-
-const createMarine = async (req, res) => {
-  
-}
-
-const getAllMarines = async (req, res) => {
-
-}
-
-const getMarine = async (req, res) => {
-  
-}
-
-const updateMarine = async (req, res) => {
-
-}
-
-const deleteMarine = async (req, res) => {
-  
+  const user = await User.create(req.body);
+  const token = user.generateJwt();
+  res.status(StatusCodes.CREATED).json({
+    user,
+    token
+  });
 }
 
 module.exports = {
   login,
-  register,
-  createMarine,
-  getAllMarines,
-  getMarine,
-  updateMarine,
-  deleteMarine
+  register
 }
