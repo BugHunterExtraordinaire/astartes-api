@@ -70,7 +70,10 @@ const getMarine = async (req, res) => {
   });
 };
 const updateMarine = async (req, res) => {
-  const marine = await Marine.findByIdAndUpdate(req.marineId, req.body, {
+  const marine = await Marine.findOneAndUpdate({
+    _id: req.marineId,
+    createdBy: req.user.userId
+  }, req.body, {
     returnDocument: 'after',
     runValidators: true
   });
