@@ -3,7 +3,7 @@ const { NotFoundError } = require('../errors');
 const { StatusCodes } = require('http-status-codes');
 const { formatSort } = require('../utils/marine');
 
-const getAllAstartes = async (req, res) => {
+const getAllMarines = async (req, res) => {
   const { 
     name, 
     chapter, 
@@ -44,13 +44,13 @@ const getAllAstartes = async (req, res) => {
     nbHits: marines.length
   });
 };
-const createAstartes = async (req, res) => {
+const createMarine = async (req, res) => {
   const marine = await Marine.create(req.body);
   res.status(StatusCodes.CREATED).json({
     marine
   });
 };
-const getAstartes = async (req, res) => {
+const getMarine = async (req, res) => {
   const marine = await Marine.findById(req.astartesId);
   if (!marine) throw new NotFoundError(`No marine found with id: ${req.astartesId}`);
 
@@ -58,7 +58,7 @@ const getAstartes = async (req, res) => {
     marine
   });
 };
-const updateAstartes = async (req, res) => {
+const updateMarine = async (req, res) => {
   const marine = await Marine.findByIdAndUpdate(req.astartesId, req.body, {
     returnDocument: 'after',
     runValidators: true
@@ -69,7 +69,7 @@ const updateAstartes = async (req, res) => {
     marine
   });
 };
-const deleteAstartes = async (req, res) => {
+const deleteMarine = async (req, res) => {
   const marine = await Marine.findByIdAndDelete(req.astartesId);
   if (!marine) throw new NotFoundError(`No marine found with id: ${req.astartesId}`);
 
@@ -79,9 +79,9 @@ const deleteAstartes = async (req, res) => {
 };
 
 module.exports = {
-  getAllAstartes,
-  createAstartes,
-  getAstartes,
-  updateAstartes,
-  deleteAstartes
+  getAllMarines,
+  createMarine,
+  getMarine,
+  updateMarine,
+  deleteMarine
 }
