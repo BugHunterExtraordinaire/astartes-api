@@ -13,10 +13,13 @@ const getAllMarines = async (req, res) => {
     limit,
     page
   } = req.query;
+
   const findObj = {};
   const sortObj = formatSort(sort);
+
   let limitNum = 10;
   let pageNum = 0;
+
   if (name) {
     findObj.name = name;
   }
@@ -35,10 +38,14 @@ const getAllMarines = async (req, res) => {
   if (page) {
     pageNum = (Number(page) - 1) * limitNum;
   }
+
+  findObj.createdBy = req.user.userId;
+
   const marines = await Marine.find(findObj)
                               .sort(sortObj)
                               .limit(limitNum)
                               .skip(pageNum);
+
   res.status(StatusCodes.OK).json({
     marines,
     nbHits: marines.length
