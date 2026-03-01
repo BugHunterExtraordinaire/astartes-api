@@ -84,7 +84,10 @@ const updateMarine = async (req, res) => {
   });
 };
 const deleteMarine = async (req, res) => {
-  const marine = await Marine.findByIdAndDelete(req.marineId);
+  const marine = await Marine.findOneAndDelete({
+    _id: req.marineId,
+    createdBy: req.user.userId
+  });
   if (!marine) throw new NotFoundError(`No marine found with id: ${req.marineId}`);
 
   res.status(StatusCodes.OK).json({
