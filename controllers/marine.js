@@ -59,7 +59,10 @@ const createMarine = async (req, res) => {
   });
 };
 const getMarine = async (req, res) => {
-  const marine = await Marine.findById(req.marineId);
+  const marine = await Marine.findOne({
+    _id: req.marineId,
+    createdBy: req.user.userId
+  });
   if (!marine) throw new NotFoundError(`No marine found with id: ${req.marineId}`);
 
   res.status(StatusCodes.OK).json({
