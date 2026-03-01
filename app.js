@@ -11,7 +11,7 @@ const { rateLimit } = require('express-rate-limit');
 const connectDB = require('./database/connect');
 const handleError = require('./middleware/handleError');
 
-const astartesRouter = require('./routes/astartes');
+const marineRouter = require('./routes/marine');
 
 app.use(helmet());
 app.use(cors());
@@ -25,7 +25,7 @@ app.use(rateLimit({
 
 app.use(express.json());
 
-app.use('/api/v1/marines', astartesRouter);
+app.use('/api/v1/marines', marineRouter);
 
 app.use(handleError);
 

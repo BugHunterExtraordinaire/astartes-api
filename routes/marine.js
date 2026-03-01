@@ -9,7 +9,7 @@ const {
   getAstartes,
   updateAstartes,
   deleteAstartes
-} = require('../controllers/astartes.js');
+} = require('../controllers/marine.js');
 
 router.route('/')
       .get(asyncWrapper(getAllAstartes))
