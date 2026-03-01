@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const checkId = (req, res, next) => {
   const { id: astartesId } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(astartesId)) next(new BadRequestError(`please provide a valid id`));
+  if (!mongoose.Types.ObjectId.isValid(astartesId)) return next(new BadRequestError(`please provide a valid id`));
   req.astartesId = astartesId;
   next();
 }

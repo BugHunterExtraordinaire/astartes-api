@@ -15,7 +15,7 @@ const getAllAstartes = async (req, res) => {
   } = req.query;
   const findObj = {};
   const sortObj = formatSort(sort);
-  let limitNum = 0;
+  let limitNum = 10;
   let pageNum = 0;
   if (name) {
     findObj.name = name;
