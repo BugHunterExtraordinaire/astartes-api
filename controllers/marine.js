@@ -52,6 +52,7 @@ const getAllMarines = async (req, res) => {
   });
 };
 const createMarine = async (req, res) => {
+  req.body.createdBy = req.user.userId;
   const marine = await Marine.create(req.body);
   res.status(StatusCodes.CREATED).json({
     marine
