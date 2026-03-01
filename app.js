@@ -12,6 +12,7 @@ const connectDB = require('./database/connect');
 const handleError = require('./middleware/handleError');
 
 const marineRouter = require('./routes/marine');
+const userRouter = require('./routes/user');
 
 app.use(helmet());
 app.use(cors());
@@ -26,6 +27,7 @@ app.use(rateLimit({
 app.use(express.json());
 
 app.use('/api/v1/marines', marineRouter);
+app.use('/api/v1/users', userRouter);
 
 app.use(handleError);
 
