@@ -1,8 +1,24 @@
-const User = require('../models/user');
 const { StatusCodes } = require('http-status-codes');
+const { NotFoundError, BadRequestError } = require('../errors');
+const User = require('../models/user');
 
 const login = async (req, res) => {
-
+  const { email, password } = req.body;
+  console.log(req.body);
+  if (!email || !password) throw new BadRequestError("Please provide both email and password");
+  const user = await User.findOne({
+    email
+  });
+  console.log(user);
+  if (!user) throw new NotFoundError("invalid credentials");
+  const isVerified = await user.verifyPassword(password);
+  console.log(isVerified);
+  if (!isVerified) throw new NotFoundError("invalid credentials");
+  const token = user.generateJwt();
+  res.status(StatusCodes.OK).json({
+    user,
+    token
+  });
 }
 
 const register = async (req, res) => {
