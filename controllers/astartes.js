@@ -9,10 +9,14 @@ const getAllAstartes = async (req, res) => {
     chapter, 
     rank, 
     isTraitor,
-    sort
+    sort,
+    limit,
+    page
   } = req.query;
   const findObj = {};
   const sortObj = formatSort(sort);
+  let limitNum = 0;
+  let pageNum = 0;
   if (name) {
     findObj.name = name;
   }
@@ -25,7 +29,16 @@ const getAllAstartes = async (req, res) => {
   if (isTraitor) {
     findObj.isTraitor = isTraitor === "true" ? true : false;
   }
-  const marines = await Marine.find(findObj).sort(sortObj);
+  if (limit) {
+    limitNum = Number(limit);
+  }
+  if (page) {
+    pageNum = (Number(page) - 1) * limitNum;
+  }
+  const marines = await Marine.find(findObj)
+                              .sort(sortObj)
+                              .limit(limitNum)
+                              .skip(pageNum);
   res.status(StatusCodes.OK).json({
     marines,
     nbHits: marines.length
