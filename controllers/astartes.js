@@ -1,5 +1,5 @@
 const Marine = require('../models/marine');
-const { BadRequestError, NotFoundError } = require('../errors');
+const { NotFoundError } = require('../errors');
 const { StatusCodes } = require('http-status-codes');
 
 const getAllAstartes = async (req, res) => {

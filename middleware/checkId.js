@@ -1,8 +1,9 @@
-const { NotFoundError } = require("../errors");
+const { BadRequestError } = require("../errors");
+const mongoose = require('mongoose');
 
 const checkId = (req, res, next) => {
   const { id: astartesId } = req.params;
-  if (!astartesId) next(new NotFoundError(`please provide a valid id`));
+  if (!mongoose.Types.ObjectId.isValid(astartesId)) next(new BadRequestError(`please provide a valid id`));
   req.astartesId = astartesId;
   next();
 }
