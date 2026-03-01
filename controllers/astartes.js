@@ -1,6 +1,7 @@
 const Marine = require('../models/marine');
 const { NotFoundError } = require('../errors');
 const { StatusCodes } = require('http-status-codes');
+const { formatSort } = require('../utils/marine');
 
 const getAllAstartes = async (req, res) => {
   const { 
@@ -8,10 +9,10 @@ const getAllAstartes = async (req, res) => {
     chapter, 
     rank, 
     isTraitor,
-    filter
+    sort
   } = req.query;
   const findObj = {};
-  const filterObj = {};
+  const sortObj = formatSort(sort);
   if (name) {
     findObj.name = name;
   }
@@ -24,10 +25,7 @@ const getAllAstartes = async (req, res) => {
   if (isTraitor) {
     findObj.isTraitor = isTraitor === "true" ? true : false;
   }
-  if (filter) {
-
-  }
-  const marines = await Marine.find(findObj);
+  const marines = await Marine.find(findObj).sort(sortObj);
   res.status(StatusCodes.OK).json({
     marines,
     nbHits: marines.length
