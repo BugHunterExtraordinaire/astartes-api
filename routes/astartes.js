@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const asyncWrapper = require('../utils/asyncwrapper.js');
 
 const {
   getAllAstartes,
@@ -10,11 +11,11 @@ const {
 } = require('../controllers/astartes.js');
 
 router.route('/')
-      .get(getAllAstartes)
-      .post(createAstartes);
+      .get(asyncWrapper(getAllAstartes))
+      .post(asyncWrapper(createAstartes));
 router.route('/:id')
-      .get(getAstartes)
-      .patch(updateAstartes)
-      .delete(deleteAstartes);
+      .get(asyncWrapper(getAstartes))
+      .patch(asyncWrapper(updateAstartes))
+      .delete(asyncWrapper(deleteAstartes));
 
 module.exports = router;

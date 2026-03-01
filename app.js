@@ -10,9 +10,10 @@ const handleError = require('./middleware/handleError');
 const astartesRouter = require('./routes/astartes');
 
 app.use(express.json());
-app.use(handleError);
 
 app.use('/api/v1/marines', astartesRouter);
+
+app.use(handleError);
 
 const port = process.env.PORT || 3000;
 
